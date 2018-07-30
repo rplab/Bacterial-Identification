@@ -4,7 +4,7 @@
 
 This folder contains:
 - ConvNet_3D_for_bacterial_identificaiton.py: code for the convolutional neural network
-- code for extracting the 28x28x8 pixel images.
+- ROI_extractor.py : code for extracting the 28x28x8 pixel images.
 
 The ConvNet code uses Tensorflow to create a 3D convolutional neural network for binary classification of objects as bacteria or noise.
 It takes as input in 28x28x8 pixel images and outputs a class label of 1 or 0 for bacteria or not bacteria respectively. The input takes the form of an npz file containing the images and labels, then performs a train / test split on those images to generate the 
@@ -19,4 +19,4 @@ that the path to the npz file containing the images, the variable called "file_l
 After that, the code should be usable as is. See Tensorflow's documentation to save a trained network. 
 
 # Notes on the images and the npz file
-Note that the pixel dimensions of each image are 28x28x8, each image is normalized such that they have a standard deviation of 1 and zero mean. The labels should be converted to one-hot encoding. The images and labels are stored in a npz file. See Dropbox link for details.
+Note that the pixel dimensions of each image are 28x28x8. Each image is normalized such that it has a standard deviation of 1 and zero mean. The labels should be converted to one-hot encoding. The images and labels are stored in a npz file. See the Dropbox link to image files for details.
