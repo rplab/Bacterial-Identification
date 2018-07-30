@@ -1,11 +1,14 @@
-# 3D convolutional neural network for identification of bacteria from 3D fluorescence images
+# Convolutional neural network for identification of bacteria from 3D fluorescence images
 
-Included is code for the convolutional neural network used, ConvNet_3D_for_bacterial_identificaiton.py, as well as for extracting the 28x28x8 pixel images.
-The convnet code uses Tensorflow to create a 3D convolutional neural network for binary classification of bacteria from noise.
-It takes in 28x28x8 pixel voxel images and outputs a class of 1 or 0 for bacteria or not bacteria respectively. 
+(Associated with Hay and Parthasarathy, *Performance of convolutional neural networks for identification of bacteria in 3D microscopy datasets* (2018))
 
-The program inputs the npz file containing the images and labels, performs a train test split on those images to generate the 
-train and test set, trains the convolutional neural network and finally tests the network outputing the accuracy.
+This folder contains:
+- ConvNet_3D_for_bacterial_identificaiton.py: code for the convolutional neural network
+- code for extracting the 28x28x8 pixel images.
+
+The ConvNet code uses Tensorflow to create a 3D convolutional neural network for binary classification of objects as bacteria or noise.
+It takes as input in 28x28x8 pixel images and outputs a class label of 1 or 0 for bacteria or not bacteria respectively. The input takes the form of an npz file containing the images and labels, then performs a train / test split on those images to generate the 
+train and test sets, trains the convolutional neural network and finally tests the network outputting the test accuracy.
 
 # Example voxel images
 The images were taken by the Parthasarathy lab at the University of Oregon using light sheet microscopy and are of objects detected from 3D image stacks of larval zebrafish. Sloppy segmentation of the gut followed by a difference of gaussians blob detection was used to generate the images. The images are classified as either bacteria, or not bacteria. Note that the data and labels are available at www.dropbox.com/sh/pi814beai6sihaw/AACdfBkajyOwz4s9jV3vW57ua?dl=0.
