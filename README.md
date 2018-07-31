@@ -5,11 +5,15 @@
 ## Links to Data
 
 Shared data, including all 21000 manually labeled 3D regions of interest.
-- [filename for all extracted Vibrio volumes and labels, as one .npz file]
-- [filename for all extracted Pseudomonas volumes, one .npz file]
-- readme_data.txt : Information about the above image and label files.
-- [filename for images making up a full 3D scan of the anterior "bulb" region of one larval zebrafish]
-- [filename for all manual labels, and the CNN classifications, for the "bulb" scan above, as one .npz file]
+#### Full Data
+- https://www.dropbox.com/s/kefg025910tgz5x/vibrio_data_labels.npz?dl=0 - .npz file for all of the extracted Vibrio volumes (potential bacteria voxels) and corresponding labels. See readme_data.txt below. 
+- https://www.dropbox.com/s/hi6d1xejnkxz5m2/pseudomonas_data_labels.npz?dl=0 - .npz file for all of the extracted Pseudomonas volumes (potential bacteria voxels) and corresponding labels. See readme_data.txt below. 
+- https://www.dropbox.com/s/tj9ewdh9zp1mtfc/readme_data.txt?dl=0 : Information about the above image and label files.
+
+#### Example Scan
+- https://www.dropbox.com/s/oh1awp1n6fg45ow/example_vibrio_bulb_images.zip?dl=0 - zip file of images making up a full 3D scan of the anterior "bulb" region of one larval zebrafish. For labels see below.
+- https://www.dropbox.com/s/imo1nkoq7hctuzg/vibrio_test_labels_voxels.npz?dl=0 - .npz file containing the locations of detected potential bacteria, all lab member's manual labels, and the CNN classifications, for the "bulb" scan above.
+- https://www.dropbox.com/s/feupox8m29gkodr/readme_example_scan.txt?dl=0 - readme for the example scan.
 
 ### Notes on the images and the npz file
 Each extracted image is 28x28x8 px (4.5 x 4.5 x 8 um), normalized such that it has a standard deviation of 1 and zero mean. 
@@ -27,7 +31,6 @@ It takes as input in 28x28x8 pixel images and outputs a class label of 1 or 0 fo
 train and test sets, trains the convolutional neural network and finally tests the network outputting the test accuracy.
 
 ### How to use the code
-The code requires the python packages tensorflow, sklearn, numpy and matplotlib to be installed. It is also necessary to make sure
-that the path to the npz file containing the images, the variable called "file_loc" in the code, is correct on your machine. 
+The code requires the python packages tensorflow, sklearn, numpy and matplotlib to be installed. It is also necessary to make sure that the path to the npz file containing the images, the variable called "file_loc" in the code, is correct on your machine. 
 After that, the code should be usable as is. See Tensorflow's documentation to save a trained network. 
 
