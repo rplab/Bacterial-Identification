@@ -1,4 +1,5 @@
 
+
 from matplotlib import pyplot as plt
 from sklearn.metrics import classification_report
 from time import time
@@ -80,7 +81,7 @@ def extract_data(file_name):
 #                               LOAD DATA, CREATE TRAIN AND TEST SET
 #
 
-file_loc = '/media/parthasarathy/Bast/vibrio_data_labels.npz'
+file_loc = '/media/parthasarathy/Bast/pseudomonas_data_labels.npz'
 print('Importing and splitting data: ')
 train_data, test_data, train_labels, test_labels = extract_data(file_loc)
 
@@ -163,7 +164,7 @@ plt.plot(train_accuracy_list)
 test_prediction = []
 prediction = tf.argmax(outputNeurons, 1)  # translating the prediction from one-hot to int
 true_labels = np.argmax(test_labels, 1)
-test_data = [cube.flatten() for cube in test_data]
+test_data = [resize(np.array(cube), (8, 28, 28)).flatten() for cube in test_data]
 batch_size = 1
 test_time0 = time()
 for batch in range(len(test_labels) // batch_size):
