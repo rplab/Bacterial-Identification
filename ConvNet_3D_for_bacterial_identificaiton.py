@@ -5,6 +5,7 @@ from time import time
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 import numpy as np
+from skimage.transform import resize
 
 
 def weight_variable(shape):
@@ -47,12 +48,13 @@ def softmax_layer(x, num_in=1024, num_classes=2):
     return tf.nn.softmax(tf.matmul(x, w_fc2) + b_fc2)
 
 
-def rotate_data(data_in, labels_in):  # TEST
-    data_out = np.empty(len(data_in))
-    labels_out = np.zeros(len(labels_in))
+def rotate_data(data_in, labels):
+    data = []
+    lab = []
     for el in range(len(data_in)):
         image = data_in[el]
-        label = labels_in[el]
+        lable = labels[el]
+        # if len(image[0]) == 30 and len(image[1]) == 30:
         if np.random.randint(0, 2) == 0:
             image = np.fliplr(image)
         if np.random.randint(0, 2) == 0:
@@ -61,17 +63,16 @@ def rotate_data(data_in, labels_in):  # TEST
             image = np.array(image)[:, :, ::-1]
         if np.random.randint(0, 2) == 0:
             image = np.transpose(image, (0, 2, 1))
-        data_out[el] = image
-        labels_out[el] = label
-    return data_out, labels_out
+        data.append(image)
+        lab.append(lable)
+    return data, lab
 
 
 #  SAVE DATA AS COMPRESSED NPZ AND MAKE SURE ALL CUBES ARE RESIZED TO 8X28x28 USE: from skimage.transform import resize
 def extract_data(file_name):
-    raw_data, raw_labels = np.load(file_name)
-    labels_np = np.array(raw_labels).astype(dtype=np.uint8)
-    one_hot_labels = (np.arange(num_labels) == labels_np[:, None]).astype(np.float32)     # Put labels in one-hot
-    train_data_out, test_data_out, train_labels_out, test_labels_out = train_test_split(raw_data, one_hot_labels)
+    loaded = np.load(file_name)
+    data, labels = loaded['data'], loaded['labels']
+    train_data_out, test_data_out, train_labels_out, test_labels_out = train_test_split(data, labels)
     return train_data_out, test_data_out, train_labels_out, test_labels_out
 
 
@@ -79,10 +80,9 @@ def extract_data(file_name):
 #                               LOAD DATA, CREATE TRAIN AND TEST SET
 #
 
-file_loc = ''  # INSERT FILE LOCATION HERE
+file_loc = '/media/parthasarathy/Bast/vibrio_data_labels.npz'
 print('Importing and splitting data: ')
 train_data, test_data, train_labels, test_labels = extract_data(file_loc)
-print('training data counts: ' + str(np.unique(train_labels, return_counts=True)))
 
 #
 #                               HYPERPARAMETERS
@@ -101,8 +101,8 @@ rotate = True
 #                               CREATE THE TENSORFLOW GRAPH
 #
 
-num_labels = len(np.unique(train_labels))
-cube_length = train_data[0].flatten()
+num_labels = 2
+cube_length = 28*28*8
 session_tf = tf.InteractiveSession()
 pool_count = 0
 flat_cube = tf.placeholder(tf.float32, shape=[None, cube_length])
@@ -136,13 +136,11 @@ session_tf.run(tf.global_variables_initializer())
 
 train_accuracy_list = []
 train_time0 = time()
+print('Training neural network:')
 for epoch in range(epochs):
     print('epoch: ' + str(epoch))
-    if rotate:
-        temp_data, temp_labels = rotate_data(train_data, train_labels)  # Randomly flip and rotate images for each epoch
-    else:
-        temp_data, temp_labels = train_data, train_labels
-    temp_data = [cube.flatten() for cube in temp_data]
+    temp_data, temp_labels = rotate_data(train_data, train_labels)  # Randomly flip and rotate images for each epoch
+    temp_data = [resize(np.array(cube), (8, 28, 28)).flatten() for cube in temp_data]
     for batch in range(len(train_data) // batch_size):
         offset = (batch * batch_size) % len(train_data)
         batch_data = temp_data[offset:(offset + batch_size)]
@@ -151,7 +149,9 @@ for epoch in range(epochs):
         if batch == 0:  # Output train accuracy at the beginning of each epoch
             train_accuracy = accuracy.eval(feed_dict={
                 flat_cube: batch_data, y_: batch_labels, keep_prob: 1.0})
-            print("training accuracy %g" % train_accuracy)
+            cross_ent = cross_entropy.eval(feed_dict={
+                flat_cube: batch_data, y_: batch_labels, keep_prob: 1.0})
+            print("training accuracy %g" % train_accuracy + ',    cross entropy %g' % cross_ent)
             train_accuracy_list.append(train_accuracy)
 print('it took ' + str(np.round((time() - train_time0) / 60, 2)) + ' minutes to train network')
 plt.plot(train_accuracy_list)
@@ -175,3 +175,4 @@ t1 = time()
 print('time to classify ' + str(len(test_labels)) + ' test data = ' + str(np.round(t1 - test_time0, 2)) + ' seconds')
 print(str(np.round(len(test_labels) / (t1 - test_time0), 2)) + ' blobs per second labeled')
 print(classification_report(test_prediction, true_labels))
+
