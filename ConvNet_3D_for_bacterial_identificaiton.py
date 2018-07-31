@@ -1,5 +1,8 @@
 
 
+#       For obtaining the data, see the readme on https://github.com/rplab/Bacterial-Identification
+
+
 from matplotlib import pyplot as plt
 from sklearn.metrics import classification_report
 from time import time
@@ -81,7 +84,9 @@ def extract_data(file_name):
 #                               LOAD DATA, CREATE TRAIN AND TEST SET
 #
 
-file_loc = '/media/parthasarathy/Bast/pseudomonas_data_labels.npz'
+
+#       For obtaining the data, see the readme on https://github.com/rplab/Bacterial-Identification
+file_loc = '**FILE_PATH**/**BACTERIA_TYPE**_data_labels.npz'
 print('Importing and splitting data: ')
 train_data, test_data, train_labels, test_labels = extract_data(file_loc)
 
