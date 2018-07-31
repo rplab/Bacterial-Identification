@@ -16,7 +16,7 @@ Shared data, including all 21000 manually labeled 3D regions of interest.
 - https://www.dropbox.com/s/feupox8m29gkodr/readme_example_scan.txt?dl=0 - readme for the example scan.
 
 ### Notes on the images and the npz file
-Each extracted image is 28x28x8 px (4.5 x 4.5 x 8 um), normalized such that it has a standard deviation of 1 and zero mean. 
+Each extracted image is 10x30x30 px (4.5 x 4.5 x 8 um), normalized such that it has a standard deviation of 1 and zero mean. The convnet code reshapes the image to be 8x28x28 which is then fed into the neural network.  
 
 
 ## Code
@@ -27,7 +27,7 @@ This folder contains:
 - features.py : code for extracting features from images (for SVM and RF classifications), and descriptions of features.
 
 The ConvNet code uses Tensorflow to create a 3D convolutional neural network for binary classification of objects as bacteria or noise.
-It takes as input in 28x28x8 pixel images and outputs a class label of 1 or 0 for bacteria or not bacteria respectively. The input takes the form of an npz file containing the images and labels, then performs a train / test split on those images to generate the 
+It takes as input in 8x28x28 pixel images and outputs a class label of 1 or 0 for bacteria or not bacteria respectively. The input takes the form of an npz file containing the images and labels, then performs a train / test split on those images to generate the 
 train and test sets, trains the convolutional neural network and finally tests the network outputting the test accuracy.
 
 ### How to use the code
