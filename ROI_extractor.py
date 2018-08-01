@@ -2,17 +2,13 @@
 
 
 
-from matplotlib import pyplot as plt
-from matplotlib import gridspec, patches
 import numpy as np
-import pickle
 from skimage.feature import blob_dog
 from skimage.measure import block_reduce
 from skimage import exposure
 from time import time
 from scipy import ndimage
 import glob
-import os.path
 import re
 
 
