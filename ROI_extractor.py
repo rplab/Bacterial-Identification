@@ -44,10 +44,15 @@ def dist(x1, y1, list):
 
 
 def difference_of_gaussians_2D(file_names, scale, min_sig=2, max_sig=20, thrsh=0.02):
+    global xpixlength
+    global ypixlength
     plots = []
     start_time = time()
     blobs = []
     print('starting loop')
+    pix_dimage = ndimage.imread(file_names[0], flatten=True)
+    ypixlength = len(pix_dimage[0])
+    xpixlength = len(pix_dimage)
     for name in file_names:
         image = ndimage.imread(name, flatten=True)
         image = block_reduce(image, block_size=(scale, scale), func=np.mean)
