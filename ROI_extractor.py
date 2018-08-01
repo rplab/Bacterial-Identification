@@ -1,14 +1,13 @@
 
 
 
-
 import numpy as np
 from skimage.feature import blob_dog
 from skimage.measure import block_reduce
 from skimage import exposure
 from time import time
 from scipy import ndimage
-import glob
+from glob import glob
 import re
 
 
@@ -43,7 +42,6 @@ def difference_of_gaussians_2D(file_names, scale, min_sig=2, max_sig=20, thrsh=0
     global xpixlength
     global ypixlength
     plots = []
-    start_time = time()
     blobs = []
     print('starting loop')
     pix_dimage = ndimage.imread(file_names[0], flatten=True)
@@ -179,10 +177,11 @@ def cubeExtractor(extracted_ROI):
 
 
 
-file_names = glob('file_directory_to/example_vibrio_bulb_images/*.png')
+file_names = glob('path to file /*.png')
+sort_nicely(file_names)
 scale = 4
 cube_length = 28
-z_length = 6
+z_length = 8
 
 blobs, plots = difference_of_gaussians_2D(file_names, scale)
 
@@ -190,11 +189,11 @@ blobs, plots = difference_of_gaussians_2D(file_names, scale)
 ########################################################################################################################
 #                                           TRIMMING                                                                   #
 
-blobs = trim_segmented(blobs, plots)  # remove detected objects away from crude approximation of the gut
+blobs = trim_segmented(blobs, plots)  # remove detected objects outside of crude approximation of the gut
 blobs = trim_consecutively(blobs)  # stitch together detected objects along the z-dimension
 blobs = trim_toofewtoomany(blobs)  # remove blobs that are two short or long in z
 
-#  blibs is one-d list of (x,y,z, bacType) for detected blobs
+#  ROI_locs is one-d list of (x,y,z, bacType) for detected blobs
 ROI_locs = [[blobs[i][n][0] * scale + (blobs[i][n][3] - blobs[i][n][0]) / 2 * scale,
              blobs[i][n][1] * scale + (blobs[i][n][4] - blobs[i][n][1]) / 2 * scale,
              int(i + blobs[i][n][2] / 2)] for i in range(len(blobs)) for n in range(len(blobs[i]))]
@@ -206,4 +205,3 @@ ROI_locs = sorted(ROI_locs, key=lambda x: x[2])
 #                          ( cubes is indexed by blob, z, x,y )                                                        #
 
 cubes = cubeExtractor(ROI_locs)
-
