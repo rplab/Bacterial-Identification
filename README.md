@@ -7,7 +7,7 @@
 Shared data, including all 21000 manually labeled 3D regions of interest.
 #### Full Data
 - https://www.dropbox.com/s/kefg025910tgz5x/vibrio_data_labels.npz?dl=0 - .npz file for all of the extracted Vibrio volumes (potential bacteria voxels) and corresponding labels. See readme_data.txt below. 
-- https://www.dropbox.com/s/hi6d1xejnkxz5m2/pseudomonas_data_labels.npz?dl=0 - .npz file for all of the extracted Pseudomonas volumes (potential bacteria voxels) and corresponding labels. See readme_data.txt below. 
+- https://www.dropbox.com/s/pw36qf76e7bkwal/data-labels_GFP_pseudomonas.npz?dl=0 - .npz file for all of the extracted Pseudomonas volumes (potential bacteria voxels) and corresponding labels. See readme_data.txt below. 
 - https://www.dropbox.com/s/tj9ewdh9zp1mtfc/readme_data.txt?dl=0 : Information about the above image and label files.
 
 #### Example Scan
