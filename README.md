@@ -6,9 +6,9 @@
 
 Shared data, including all 21000 manually labeled 3D regions of interest.
 #### Full Data
-- https://www.dropbox.com/s/kefg025910tgz5x/vibrio_data_labels.npz?dl=0 - .npz file for all of the extracted Vibrio volumes (potential bacteria voxels) and corresponding labels. See readme_data.txt below. 
+- https://www.dropbox.com/s/gyz8hfl41smhhfz/data-labels_GFP_vibrio.npz?dl=0 and https://www.dropbox.com/s/pk4w8g6lchhg00j/data-labels_RFP_vibrio.npz?dl=0 - .npz file for all of the extracted Vibrio volumes (potential bacteria voxels) and corresponding labels. Note that the files have been separated in to those taken using green and red fluorescent protein (GFP, RFP). See readme_data.txt below. 
 - https://www.dropbox.com/s/pw36qf76e7bkwal/data-labels_GFP_pseudomonas.npz?dl=0 - .npz file for all of the extracted Pseudomonas volumes (potential bacteria voxels) and corresponding labels. See readme_data.txt below. 
-- https://www.dropbox.com/s/tj9ewdh9zp1mtfc/readme_data.txt?dl=0 : Information about the above image and label files.
+- https://www.dropbox.com/s/fo1nfakbb0nqf0u/data-labels.txt?dl=0 : Information about the above image and label files.
 
 #### Example Scan
 - https://www.dropbox.com/s/oh1awp1n6fg45ow/example_vibrio_bulb_images.zip?dl=0 - zip file of images making up a full 3D scan of the anterior "bulb" region of one larval zebrafish. For labels see below.
